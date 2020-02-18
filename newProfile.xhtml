@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+
+<h:head>
+    
+ <meta charset="UTF-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <meta http-equiv="X-UA-compatible" content="IE=edge"/>
+        
+<h:outputStylesheet  name="registration/vendor/bootstrap/css/bootstrap.min.css"/>
+<h:outputStylesheet name="registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+<h:outputStylesheet  name="registration/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+<h:outputStylesheet name="registration/fonts/iconic/css/material-design-iconic-font.min.css"/>
+<h:outputStylesheet  name="registration/vendor/animate/animate.css"/>
+<h:outputStylesheet  name="registration/vendor/css-hamburgers/hamburgers.min.css"/>
+<h:outputStylesheet  name="registration/vendor/animsition/css/animsition.min.css"/>
+<h:outputStylesheet  name="registration/vendor/select2/select2.min.css"/>	
+<h:outputStylesheet  name="registration/vendor/daterangepicker/daterangepicker.css"/>
+<h:outputStylesheet  name="registration/css/util.css"/>
+<h:outputStylesheet  name="registration/css/main.css"/>     
+<h:outputStylesheet  name="login/vendor/bootstrap/css/bootstrap.min.css"></h:outputStylesheet>
+        
+ <style>
+            .pic
+            {
+                background-color:aliceblue;
+                text-align: center;
+                background-size: cover;
+                padding:0px;
+                margin: 0px;
+            }          
+        </style>
+   
+</h:head>
+<h:body class="pic">
+	
+    <div id="top" style="font-family:Lucida Handwriting;
+                           font-size: 60px;
+                           color: white;
+                           background-color:black;
+                           text-align: center;
+                           ">
+            <ui:insert name="top">Online Dating</ui:insert>
+            
+            
+                       
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="myProfile.xhtml">Welcome #{user}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                <a class="nav-link" href="Login.xhtml" value="Login.xhtml">Login<span class="sr-only"></span></a>
+                </li>                
+            </ul>
+            </div>
+        </nav>
+            
+       
+<div class="limiter">
+		<div class="container-login100">
+			<div class="login100-more" style="background-image: url('2.jpg');"></div>
+
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+				<h:form class="login100-form validate-form">
+					<span class="login100-form-title p-b-59">
+						Sign Up
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate="Name is required">
+						<span class="label-input100">User Name</span>
+                                                <h:inputText class="input100" id="uname" value="#{registerBean.username}" required="true" validatorMessage="Username must only contain letters and numbers" requiredMessage="Please enter a username">
+                                                <f:validateRegex pattern="^[a-zA-Z0-9]+$"/>
+                                                </h:inputText>
+						<span class="focus-input100"></span>
+                                                <h:message for="uname" style="color:red;margin:8px;"/>
+                                                
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<span class="label-input100">Password</span>
+                                                <h:inputSecret id="pwd" value="#{registerBean.password}" redisplay="true" required="true" validatorMessage="Password must be at least 5 characters long and must include letters, numbers, and a special character" 
+                               requiredMessage="Please enter a password" class="input100" >
+                                                
+                                                <f:validateRegex pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?])[A-Za-z\d@$!%*#?]{5,}$"/>
+                                                </h:inputSecret>
+						<span class="focus-input100"></span>
+                                                <h:message for="pwd" style="color:red;margin:8px;"/>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Username is required">
+						<span class="label-input100">Age</span>
+                                                
+                                                <h:panelGrid class="input100" columns="1" style="margin-bottom: 10px">
+                    <p:inputText id="age" value="#{registerBean.age}" required="true" validatorMessage="Age is Required" requiredMessage="Please use the slider to select your age" />
+                    <p:slider for="age" minValue="18" maxValue="100" step="1"/>
+                </h:panelGrid>
+                                                
+						<span class="focus-input100"></span>
+                                                 <h:message for="age" style="color:red;margin:8px;"/>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<span class="label-input100">Gender</span>
+                                                
+              <h:selectOneRadio class="input100" label="Gender" id="gend" value="#{registerBean.gender}" required="true" validatorMessage="You must select a gender" requiredMessage="Please select a gender">
+                    <f:selectItem itemLabel="Male" itemValue="male" />
+                    <f:selectItem itemLabel="Female" itemValue="female" />
+                </h:selectOneRadio>
+                                                
+						<span class="focus-input100"></span>
+                                                <h:message for="gend" style="color:red;margin:8px;"/>
+                                                
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+						<span class="label-input100">Location</span>
+                                                
+                                                <h:inputText class="input100" label="Location" id="loca" value="#{registerBean.location}" required="true" validatorMessage="Please enter a valid location" requiredMessage="Please enter a location">
+                                                <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                                                </h:inputText>
+						<span class="focus-input100"></span>
+                                                <h:message for="loca" style="color:red;margin:8px;"/>
+					</div>
+                                    
+                                        <div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+						<span class="label-input100">First Interest</span>
+                                                
+                                                <h:inputText class="input100" label="Interest" id="int" value="#{registerBean.interest}" required="true" validatorMessage="Please enter a valid word" requiredMessage="First interest is required">
+                                                <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                                                </h:inputText>     
+						<span class="focus-input100"></span>
+                                                <h:message for="int" style="color:red;margin:8px;"/>
+					</div>
+                                    
+                                    <div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+						<span class="label-input100">Second Interest</span>
+                                                
+                                                <h:inputText class="input100" label="Interest2" id="int2" value="#{registerBean.interest2}" required="false" validatorMessage="Please enter a valid word">
+                                                <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                                                </h:inputText>     
+						<span class="focus-input100"></span>
+                                                <h:message for="int2" style="color:red;margin:8px;"/>
+					</div>
+                                    
+                                    
+                                    <div class="wrap-input100 validate-input" data-validate = "Repeat Password is required">
+						<span class="label-input100">Third Interest</span>
+                                                
+                                                <h:inputText class="input100" label="Interest3" id="int3" value="#{registerBean.interest3}" required="false" validatorMessage="Please enter a valid word">
+                                                <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                                                </h:inputText>     
+						<span class="focus-input100"></span>
+                                                <h:message for="int3" style="color:red;margin:8px;"/>
+					</div>
+                                    
+                                    
+
+                                        <div class="container-login100-form-btn m-t-32">
+                                            <h:commandButton class="login100-form-btn" value="Signup" action="#{registerBean.validateUsername()}"></h:commandButton>
+                                           
+                                            <h:messages globalOnly="true" style="color:red;margin:8px;" /> <br/><br/> 
+                                            
+                                            
+           				</div>
+                   	
+				</h:form>
+			</div>
+		</div>
+	</div>
+    </div>
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</h:body>
+</html>

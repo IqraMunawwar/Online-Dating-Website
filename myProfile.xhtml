@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    
+    <h:head>
+        <title>My Profile</title>
+        
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <meta http-equiv="X-UA-compatible" content="IE=edge"></meta>
+        
+        <h:outputStylesheet  name="login/vendor/bootstrap/css/bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/animate/animate.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/css-hamburgers/hamburgers.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/animsition/css/animsition.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/select2/select2.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/daterangepicker/daterangepicker.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/css/util.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/css/main.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="registration/images/icons/favicon.ico"/>
+
+
+         <style>
+            .pic
+            {
+                background-color:aliceblue;
+                text-align: center;
+                background-size: cover;
+                padding:0px;
+                margin: 0px;
+            }          
+        </style>
+
+        
+    </h:head>
+    <h:body class="pic">
+        
+         <div id="top" style="font-family:Lucida Handwriting;
+                           font-size: 60px;
+                           color: white;
+                           background-color:black;
+                           text-align: center;">
+            <ui:insert name="top" >Online Dating</ui:insert>
+            
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="myProfile.xhtml">Welcome #{user}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                <a class="nav-link" href="Home.xhtml" value="Home.xhtml">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="myProfile.xhtml" value="myProfile.xhtml" >View My Profile</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="newSearch.xhtml" value="newSearch.xhtml">New Search</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="friendsMenu.xhtml" value="friendsMenu.xhtml">Friends</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="topProfiles.xhtml" value="topProfiles.xhtml">View Top Profiles</a>
+                </li>
+            </ul>
+            <h:form class="form-inline my-2 my-lg-0">
+            <h:commandButton value="Logout" class="btn btn-outline-success my-2 my-sm-0" 
+           onclick="if (! confirm('Are you sure you want to logout?')) return false" type="submit" action="#{loginBean.logout()}"></h:commandButton>
+            </h:form>
+            </div>
+        </nav>
+
+ <div class="limiter">
+		<div class="container-login100" style="background-image: url('2.jpg');">
+			
+                <h:form>
+                    <span style="font-family: Courier; font-size:20px" ><br/> Edit or Delete <br/> </span>
+                <h:commandButton class="btn btn-outline-success my-2 my-sm-0"  onclick="if (! confirm('Are you sure you want to delete your profile?')) return false" value="Delete" action="#{loginBean.deleteProfile(user)}" />
+                </h:form>  
+                
+                    
+		<h:form>
+                        <span class="login100-form-title p-b-41">
+			Welcome to your profile
+			</span>
+			
+                    <div>
+                        <span style="color:black; font-family:Arial; font-size: 20px;">
+											
+                        <p>
+                         Current Password: #{loginBean.loginUser().password}
+                        </p>
+                                    
+                        <p>
+                         Age: #{loginBean.loginUser().age}
+                        </p>
+                                    
+                        <p>
+                        Gender: #{loginBean.loginUser().gender}
+                        </p>
+                                    
+                        <p>
+                        Location: #{loginBean.loginUser().location}
+                        </p>
+                                    
+                        <p>
+                        First interest: #{loginBean.loginUser().interest1}
+                        </p>
+                                    
+                        <p>
+                        Second interest: #{loginBean.loginUser().interest2}
+                        </p>
+                                    
+                        <p>
+                        Third interest: #{loginBean.loginUser().interest3}
+                        </p>		
+                                                
+                        </span>  
+                    </div>			   
+ 
+                </h:form>
+            </div>
+     
+</div>
+</div>
+         
+<!--===============================================================================================-->
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+    </h:body>
+</html>
+										
+					

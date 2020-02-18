@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Friends</title>
+        <h:outputStylesheet library="css" name="navbar.css"  />
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <meta http-equiv="X-UA-compatible" content="IE=edge"></meta>
+        <h:outputStylesheet  name="login/vendor/bootstrap/css/bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/animate/animate.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/css-hamburgers/hamburgers.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/animsition/css/animsition.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/select2/select2.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/daterangepicker/daterangepicker.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/css/util.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/css/main.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="registration/images/icons/favicon.ico"/>
+
+
+         <style>
+            .pic
+            {
+                background-color:aliceblue;
+                text-align: center;
+                background-size: cover;
+                padding:0px;
+                margin: 0px;
+            }    
+            
+            #top
+            {
+                font-family:Lucida Handwriting;
+                font-size: 60px;
+                color: white;
+                background-color:black;
+                text-align: center;
+                
+                
+            }
+        </style>
+        </h:head>
+        <h:body class="pic">
+        
+        <div id="top" >
+            <ui:insert name="top" >Online Dating</ui:insert>
+    
+    
+        
+        <h:panelGroup rendered="#{empty user}">
+            <h1>No Valid Session</h1>
+            <h2>Please login in</h2>        
+            <p><a href="faces/index.xhtml">Click here to go to login/create profile</a>.</p>
+            
+        </h:panelGroup>   
+        <h:panelGroup rendered="#{not empty user}">
+        <div>   
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="myProfile.xhtml">Welcome #{user}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                <a class="nav-link" href="Home.xhtml" value="Home.xhtml">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="myProfile.xhtml" value="myProfile.xhtml" >View My Profile</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="newSearch.xhtml" value="newSearch.xhtml">New Search</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="friendsMenu.xhtml" value="friendsMenu.xhtml">Friends</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="topProfiles.xhtml" value="topProfiles.xhtml">View Top Profiles</a>
+                </li>
+            </ul>
+            <h:form class="form-inline my-2 my-lg-0">
+            <h:commandButton value="Logout" class="btn btn-outline-success my-2 my-sm-0" 
+           onclick="if (! confirm('Are you sure you want to logout?')) return false" type="submit" action="#{loginBean.logout()}"></h:commandButton>
+            </h:form>
+            </div>
+        </nav>
+        </div>    
+            
+ <div class="limiter">
+		<div class="container-login100" style="background-image: url('2.jpg');">
+			
+				<h:form>
+                        <span class="login100-form-title p-b-41">
+					Welcome to Friends Menu
+                                        Select option below:
+			</span>
+		<div>
+                <span style="color:black; font-family:Arial; font-size: 20px;">
+                
+                <h:form>
+                   
+                    <h:outputText value="View My Friends"/> <br/>
+                    
+                    <h:commandLink value="View My Friend" action="#{myFriendsBean.populateFriendsList(user)}"></h:commandLink><br/>
+
+                    <h:outputText value="View My Friend Requests"/> <br/>
+                   
+                    <h:commandLink value="View My Friend Requests" action="#{myFriendRequestsBean.populateFriendRequests(user)}"></h:commandLink><br/>
+
+                    <h:outputText value="Search for New Friends"/> <br/>
+        
+                    <h:outputLink value="newSearch.xhtml">Search</h:outputLink><br/>
+                    
+                </h:form>
+                    
+                </span>
+                    
+                </div>
+                                </h:form>
+                </div>
+ </div>
+                
+                
+
+        
+        </h:panelGroup>
+         
+        
+ 
+          </div>  
+    </h:body>
+    
+</html>
+

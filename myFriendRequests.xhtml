@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Friend Requests</title>
+        <h:outputStylesheet library="css" name="navbar.css"  />
+        <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <meta http-equiv="X-UA-compatible" content="IE=edge"></meta>
+        <h:outputStylesheet  name="login/vendor/bootstrap/css/bootstrap.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/animate/animate.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/css-hamburgers/hamburgers.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/animsition/css/animsition.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/select2/select2.min.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/vendor/daterangepicker/daterangepicker.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/css/util.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="login/css/main.css"></h:outputStylesheet>
+        <h:outputStylesheet  name="registration/images/icons/favicon.ico"/>
+
+
+        <style>
+            .pic
+            {
+                background-color:aliceblue;
+                text-align: center;
+                background-size: cover;
+                padding:0px;
+                margin: 0px;
+            }   
+            
+             .value 
+            {
+                font-weight: bold;
+            }
+
+            .ui-carousel 
+            {
+                margin-bottom: 20px;
+            }
+            
+        </style>
+        
+        
+    </h:head>
+    <h:body>
+        <center>
+        <h:panelGroup rendered="#{empty user}">
+            <h1>No Valid Session</h1>
+            <h2>Please login in</h2>        
+            <p><a href="faces/index.xhtml">Click here to go to login/create profile</a>.</p>
+            
+        </h:panelGroup>
+            
+        <h:panelGroup rendered="#{not empty user}">
+        <div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="myProfile.xhtml">Welcome #{user}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                <a class="nav-link" href="Home.xhtml" value="Home.xhtml">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="myProfile.xhtml" value="myProfile.xhtml" >View My Profile</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="newSearch.xhtml" value="newSearch.xhtml">New Search</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="friendsMenu.xhtml" value="friendsMenu.xhtml">Friends</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="topProfiles.xhtml" value="topProfiles.xhtml">View Top Profiles</a>
+                </li>
+            </ul>
+            <h:form class="form-inline my-2 my-lg-0">
+            <h:commandButton value="Logout" class="btn btn-outline-success my-2 my-sm-0" 
+           onclick="if (! confirm('Are you sure you want to logout?')) return false" type="submit" action="#{loginBean.logout()}"></h:commandButton>
+            </h:form>
+            </div>
+        </nav>
+        </div>
+            
+          <h3>Friend Requests</h3>
+           
+            <div> 
+                
+                <h4>Current Friend Requests</h4>
+                <h:form id="form">
+                    <p:carousel value="#{myFriendRequestsBean.requests}" headerText="Friend Requests" footerText="You have #{myFriendRequestsBean.requests.size()} friend requests" var="req" itemStyle="text-align:center" responsive="true" numVisible="3">
+                        <h:panelGrid columns="1" style="width:100%;margin:10px 0px" columnClasses="label,value" styleClass="" >
+                            <f:facet name="header">
+                                <h:outputText value="#{req.username}" />
+                            </f:facet>
+                            <p:graphicImage width="150" height="150" value="resources/images/male.png" rendered="#{req.gender eq 'male'}"/>
+                            <p:graphicImage width="150" height="150" value="resources/images/female.png" rendered="#{req.gender eq 'female'}"/>
+
+                            
+                            <h:outputText value="#{req.gender}" />
+                            <h:outputText value="Age: #{req.age}" />
+                            
+
+                            <p:commandButton value ="Accept Request" action="#{myFriendRequestsBean.acceptRequest(req.username, user)}"  />
+                            <p:commandButton value ="Decline Request" action="#{myFriendRequestsBean.declineRequest(req.username, user)}" />   
+
+                            
+                            <f:facet name="footer">
+                                <p:commandButton value="View Details" update=":form:requestDetail" oncomplete="PF('requestDialog').show()" >
+                                    <f:setPropertyActionListener value="#{req}" target="#{myFriendRequestsBean.request}" />
+                                </p:commandButton>
+                            </f:facet>
+                        </h:panelGrid>
+                    </p:carousel>
+                    <p:dialog header="Request Details" widgetVar="requestDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                        <p:outputPanel id="requestDetail" style="text-align:center;">
+                            <p:panelGrid  columns="2" rendered="#{not empty myFriendRequestsBean.request}" columnClasses="label,value">
+                                <f:facet name="header">
+                                    <p:graphicImage width="150" height="150" value="resources/images/male.png" rendered="#{myFriendRequestsBean.request.gender eq 'male'}"/>
+                                    <p:graphicImage width="150" height="150" value="resources/images/female.png" rendered="#{myFriendRequestsBean.request.gender eq 'female'}"/>
+                                </f:facet>
+
+                                <h:outputText value="Username:" />
+                                <h:outputText value="#{myFriendRequestsBean.request.username}" />
+
+                                <h:outputText value="Age:" />
+                                <h:outputText value="#{myFriendRequestsBean.request.age}" />
+
+                                <h:outputText value="Gender:" />
+                                <h:outputText value="#{myFriendRequestsBean.request.gender}"/>
+
+                                <h:outputText value="Location" />
+                                <h:outputText value="#{myFriendRequestsBean.request.location}" />
+                                
+                                <h:outputText value="Interest" />
+                                <h:outputText value="#{myFriendRequestsBean.request.interest1}" />
+                                
+                                <h:outputText value="Interest" />
+                                <h:outputText value="#{myFriendRequestsBean.request.interest2}" />
+                                
+                                <h:outputText value="Interest" />
+                                <h:outputText value="#{myFriendRequestsBean.request.interest3}" />
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                    
+                </h:form>
+                
+            </div>         
+            
+        </h:panelGroup>
+        </center>
+    </h:body>
+</html>
+

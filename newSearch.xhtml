@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Search for a Profile</title>
+        <meta charset="UTF-8"/>
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+ <meta http-equiv="X-UA-compatible" content="IE=edge"/>
+        
+<h:outputStylesheet  name="registration/vendor/bootstrap/css/bootstrap.min.css"/>
+<h:outputStylesheet name="registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+<h:outputStylesheet  name="registration/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+<h:outputStylesheet name="registration/fonts/iconic/css/material-design-iconic-font.min.css"/>
+<h:outputStylesheet  name="registration/vendor/animate/animate.css"/>
+<h:outputStylesheet  name="registration/vendor/css-hamburgers/hamburgers.min.css"/>
+<h:outputStylesheet  name="registration/vendor/animsition/css/animsition.min.css"/>
+<h:outputStylesheet  name="registration/vendor/select2/select2.min.css"/>	
+<h:outputStylesheet  name="registration/vendor/daterangepicker/daterangepicker.css"/>
+<h:outputStylesheet  name="registration/css/util.css"/>
+<h:outputStylesheet  name="registration/css/main.css"/>     
+<h:outputStylesheet  name="login/vendor/bootstrap/css/bootstrap.min.css"></h:outputStylesheet>    
+
+         <style>
+            .pic
+            {
+                background-color:aliceblue;
+                text-align: center;
+                background-size: cover;
+                padding:0px;
+                margin: 0px;
+            } 
+                         
+        </style>
+ 
+    </h:head>
+    <h:body class="pic">
+     
+        <h:panelGroup rendered="#{empty user}">
+            <h1>No Valid Session</h1>
+            <h2>Please login in</h2>
+        
+            <p><a href="faces/index.xhtml">Click here to go to login/create profile</a></p>
+        </h:panelGroup>
+        
+        <h:panelGroup rendered="#{not empty user}">
+            <div id="top" style="font-family:Lucida Handwriting;
+                           font-size: 60px;
+                           color: white;
+                           background-color:black;
+                           text-align: center;">
+            <ui:insert name="top" >Online Dating</ui:insert>
+            
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="myProfile.xhtml">Welcome #{user}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                <a class="nav-link" href="Home.xhtml" value="Home.xhtml">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="myProfile.xhtml" value="myProfile.xhtml" >View My Profile</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="newSearch.xhtml" value="newSearch.xhtml">New Search</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="friendsMenu.xhtml" value="friendsMenu.xhtml">Friends</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="topProfiles.xhtml" value="topProfiles.xhtml">View Top Profiles</a>
+                </li>
+            </ul>
+            <h:form class="form-inline my-2 my-lg-0">
+            <h:commandButton value="Logout" class="btn btn-outline-success my-2 my-sm-0" 
+           onclick="if (! confirm('Are you sure you want to logout?')) return false" type="submit" action="#{loginBean.logout()}"></h:commandButton>
+            </h:form>
+            </div>
+        </nav>
+            
+            
+            
+            <div class="limiter">
+		<div class="container-login100">
+			<div class="login100-more" style="background-image: url('2.jpg');"></div>
+
+			<div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
+				<h:form class="login100-form validate-form">
+					<span class="login100-form-title p-b-59">
+						Search 
+                                               <a href="faces/index.xhtml">Click here to go to login/create profile</a>
+					       <h5>Please Enter Any Search Parameter</h5>
+                                               <h5>Leave blank to skip</h5>
+                                       
+                                             </span>   
+                       
+                    
+                        <div class="wrap-input100 validate-input" data-validate = "Password is required">
+		        <span class="label-input100">Gender</span>
+                                                
+                <h:selectOneRadio class="input100" label="Gender" id="gend" value="#{searchBean.gender}" required="true" validatorMessage="You must select a gender" requiredMessage="Please select a gender">
+                    <f:selectItem itemLabel="Male" itemValue="male" />
+                    <f:selectItem itemLabel="Female" itemValue="female" />
+                    <f:selectItem itemLabel="Any" itemValue="any" />
+                </h:selectOneRadio>
+                                                
+						<span class="focus-input100"></span>
+                                                <h:message for="gend" style="color:red;margin:8px;"/>
+                                                
+					</div>
+           
+                <div class="wrap-input100 validate-input">
+		<span class="label-input100">Age</span>
+                                                
+                <h:panelGrid class="input100" columns="1" style="margin-bottom: 10px">
+                    <h:outputText id="displayRange" value="#{searchBean.ageMin} and #{searchBean.ageMax}" />
+                    <p:slider for="agMin,agMax" display="displayRange" style="width: 400px" range="true"  displayTemplate="{min} and {max}" />
+                </h:panelGrid>
+                                                
+		<span class="focus-input100"></span>
+                <h:inputHidden id="agMin" value="#{searchBean.ageMin}" validatorMessage="Age must be above 18">
+                        <f:validateLongRange minimum="18"/>
+                </h:inputHidden>
+                <h:message for="agMin" style="color:red;margin:8px;"/>
+                <h:inputHidden id="agMax" value="#{searchBean.ageMax}"  validatorMessage="Age must be above 18">
+                <f:validateLongRange minimum="18"/>
+                </h:inputHidden>
+                <h:message for="agMax" style="color:red;margin:8px;"/>
+	        </div>
+                
+                <div class="wrap-input100 validate-input" >
+	        <span class="label-input100">Location</span>
+                    <h:inputText class="input100" label="Location" id="loca" value="#{searchBean.location}" required="false" validatorMessage="Please enter a valid word">
+                        <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                    </h:inputText>            
+                    <span class="focus-input100"></span>
+                    <h:message for="loca" style="color:red;margin:8px;"/>
+                </div>
+
+                <div class="wrap-input100 validate-input">
+                   <span class="label-input100">First Interest</span> 
+                <h:inputText class="input100" label="Interest" id="int" value="#{searchBean.interest}" required="false" validatorMessage="Please enter a valid word">
+                        <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                    </h:inputText>
+                   <span class="focus-input100"></span>
+                    <h:message for="int" style="color:red;margin:8px;"/>
+                   
+                </div>
+                
+                
+                <div class="wrap-input100 validate-input">
+                   <span class="label-input100">Second Interest</span> 
+                <h:inputText class="input100" label="Interest" id="int2" value="#{searchBean.interest2}" required="false" validatorMessage="Please enter a valid word">
+                        <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                    </h:inputText>
+                   <span class="focus-input100"></span>
+                    <h:message for="int2" style="color:red;margin:8px;"/>
+                   
+                </div>
+                
+                <div class="wrap-input100 validate-input">
+                   <span class="label-input100">Third Interest</span> 
+                <h:inputText class="input100" label="Interest" id="int3" value="#{searchBean.interest3}" required="false" validatorMessage="Please enter a valid word">
+                        <f:validateRegex pattern="([a-zA-Z ]+)?"/>
+                    </h:inputText>
+                   <span class="focus-input100"></span>
+                    <h:message for="int3" style="color:red;margin:8px;"/>
+                   
+                </div>
+                
+                
+                <div class="container-login100-form-btn m-t-32">
+                  <h:commandButton class="login100-form-btn" value="Search" action="#{searchBean.Search(user)}" /> 
+                  <h:messages globalOnly="true" style="color:red;margin:8px;" />
+                                            
+           	</div>
+                   </h:form>
+                            
+                    
+</div>
+                  </div>
+                </div>
+            </div>       
+    
+     </h:panelGroup>  
+    </h:body>
+</html>
+
